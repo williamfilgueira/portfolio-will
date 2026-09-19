@@ -1,0 +1,81 @@
+import { Container } from '@/components/ui/Container';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import { Pill } from '@/components/ui/Pill';
+import { Reveal } from '@/components/ui/Reveal';
+import { site } from '@/data/site';
+
+const INDICATORS = ['Full stack', 'Backend', 'Frontend', 'Database', 'Architecture'];
+
+function Portrait() {
+  if (site.photo) {
+    return (
+      <img
+        src={site.photo}
+        alt={`Foto de ${site.name}`}
+        loading="lazy"
+        decoding="async"
+        className="mx-auto aspect-[4/5] w-full max-w-[440px] rounded-[28px] object-cover lg:mx-0"
+      />
+    );
+  }
+
+  // Placeholder até a foto real entrar em public/ (configure em src/data/site.ts).
+  return (
+    <div className="relative mx-auto aspect-[4/5] w-full max-w-[440px] overflow-hidden rounded-[28px] border border-line bg-surface lg:mx-0">
+      <div className="absolute inset-0 opacity-40 [background-image:radial-gradient(rgb(255_176_32/0.14)_1px,transparent_1px)] [background-size:22px_22px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_30%_20%,rgb(255_176_32/0.16),transparent_70%)]" />
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 grid place-items-center font-display text-[clamp(7rem,18vw,11rem)] leading-none font-bold tracking-[-0.06em] text-accent"
+      >
+        WF
+      </span>
+      <span className="absolute bottom-5 left-6 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-ink-dim">
+        {site.name}
+      </span>
+    </div>
+  );
+}
+
+/* 07 — Sobre (dark). */
+export function About() {
+  return (
+    <section id="sobre" className="relative bg-graphite py-24 md:py-36">
+      <Container className="grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <Reveal>
+          <Portrait />
+        </Reveal>
+
+        <div>
+          <Reveal>
+            <Eyebrow>07 · Sobre</Eyebrow>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h2 className="mt-6 font-display text-display-l font-semibold">
+              Construo sistemas pensando além do código.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="mt-6 max-w-[52ch] text-lg text-ink-dim">
+              Sou desenvolvedor de sistemas com experiência em backend, frontend, bancos de dados, APIs
+              e arquitetura de software.
+            </p>
+            <p className="mt-4 max-w-[52ch] text-lg text-ink-dim">
+              Do banco de dados à interface, cuido de cada camada para que a tecnologia sirva ao
+              negócio — e não o contrário.
+            </p>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <ul className="mt-10 flex flex-wrap gap-2">
+              {INDICATORS.map((indicator) => (
+                <li key={indicator}>
+                  <Pill tone="accent">{indicator}</Pill>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </Container>
+    </section>
+  );
+}
