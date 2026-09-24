@@ -39,7 +39,7 @@ export function Contact() {
     <section id="contato" ref={root} className="relative bg-accent py-28 text-on-accent md:py-44">
       <Container>
         <Reveal>
-          <Eyebrow tone="current">08 · Contato</Eyebrow>
+          <Eyebrow tone="current">08 // Contato</Eyebrow>
         </Reveal>
         <Reveal delay={0.08}>
           <h2 className="mt-8 max-w-[12ch] font-display text-[clamp(3.25rem,10vw,9rem)] leading-[0.9] font-bold tracking-[-0.045em]">

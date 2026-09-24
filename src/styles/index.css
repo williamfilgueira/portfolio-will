@@ -20,6 +20,10 @@
   --color-on-accent: #2a1c05;
   --color-on-light: #221e17;
   --color-on-light-dim: #5c574e;
+  /* Ciano de HUD (pegada cyberpunk): só para dados — labels, linhas, números. */
+  --color-cyber: #50e0c4;
+  --color-cyber-ink: #0f6f5c;
+  --color-cyber-line: rgb(80 224 196 / 0.45);
   --color-line: rgb(245 243 239 / 0.09);
   --color-line-strong: rgb(245 243 239 / 0.16);
   --color-accent-line: rgb(255 176 32 / 0.55);
@@ -64,6 +68,78 @@
   --ease-in-soft: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Canto chanfrado (painel estilo HUD): corta o canto superior direito e o inferior esquerdo. */
+@utility cut-corner {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% 100%,
+    14px 100%,
+    0 calc(100% - 14px)
+  );
+}
+
+@utility cut-corner-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+/*
+ * Fecha o chanfro em elementos com borda: o clip-path corta o canto e a borda
+ * fica "aberta", então desenhamos a diagonal com dois gradientes.
+ * Use junto com cut-corner / cut-corner-sm. Cor: --cut-line (padrão: --color-line).
+ */
+@utility cut-edge {
+  background-image:
+    linear-gradient(
+      to bottom left,
+      transparent calc(50% + 0.2px),
+      var(--cut-line, var(--color-line)) calc(50% + 0.2px) calc(50% + 1.4px),
+      transparent calc(50% + 1.4px)
+    ),
+    linear-gradient(
+      to top right,
+      transparent calc(50% + 0.2px),
+      var(--cut-line, var(--color-line)) calc(50% + 0.2px) calc(50% + 1.4px),
+      transparent calc(50% + 1.4px)
+    );
+  background-repeat: no-repeat;
+  background-position:
+    top right,
+    bottom left;
+  background-size: 14px 14px;
+}
+
+@utility cut-edge-sm {
+  background-image:
+    linear-gradient(
+      to bottom left,
+      transparent calc(50% + 0.2px),
+      var(--cut-line, var(--color-line)) calc(50% + 0.2px) calc(50% + 1.4px),
+      transparent calc(50% + 1.4px)
+    ),
+    linear-gradient(
+      to top right,
+      transparent calc(50% + 0.2px),
+      var(--cut-line, var(--color-line)) calc(50% + 0.2px) calc(50% + 1.4px),
+      transparent calc(50% + 1.4px)
+    );
+  background-repeat: no-repeat;
+  background-position:
+    top right,
+    bottom left;
+  background-size: 8px 8px;
+}
+
+/* Linhas horizontais de tela antiga. */
+@utility hud-scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgb(245 243 239 / 0.04) 0 1px,
+    transparent 1px 3px
+  );
 }
 
 @utility container-site {

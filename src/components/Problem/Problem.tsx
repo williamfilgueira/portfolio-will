@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { HudOverlay } from '@/components/ui/HudOverlay';
 import { Reveal } from '@/components/ui/Reveal';
 import { problems } from '@/data/problems';
 import { gsap, MQ, useGSAP } from '@/animations/gsap';
@@ -63,10 +64,11 @@ export function Problem() {
 
   return (
     <section id="problema" className="relative bg-graphite py-24 md:py-36">
+      <HudOverlay />
       <Container>
         <div className="max-w-4xl">
           <Reveal>
-            <Eyebrow>02 · O problema</Eyebrow>
+            <Eyebrow>02 // O problema</Eyebrow>
           </Reveal>
           <Reveal delay={0.08}>
             <h2 className="mt-6 font-display text-display-l font-semibold">

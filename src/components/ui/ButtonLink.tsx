@@ -9,11 +9,11 @@ const variants: Record<Variant, string> = {
     'bg-accent text-on-accent shadow-glow-sm hover:-translate-y-0.5 hover:shadow-glow-md',
   dark: 'bg-graphite text-light hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-8px_rgb(19_18_16/0.45)]',
   ghost:
-    'border border-line-strong text-ink hover:border-accent hover:text-accent hover:shadow-glow-sm',
+    'cut-edge-sm border border-line-strong text-ink [--cut-line:var(--color-line-strong)] hover:border-accent hover:text-accent hover:shadow-glow-sm hover:[--cut-line:var(--color-accent)]',
   ghostOnLight:
-    'border border-on-light/25 text-on-light hover:border-on-light hover:bg-on-light/5',
+    'cut-edge-sm border border-on-light/25 text-on-light [--cut-line:rgb(34_30_23/0.25)] hover:border-on-light hover:bg-on-light/5 hover:[--cut-line:var(--color-on-light)]',
   ghostOnAccent:
-    'border border-on-accent/30 text-on-accent hover:border-on-accent hover:bg-on-accent/5',
+    'cut-edge-sm border border-on-accent/30 text-on-accent [--cut-line:rgb(42_28_5/0.3)] hover:border-on-accent hover:bg-on-accent/5 hover:[--cut-line:var(--color-on-accent)]',
 };
 
 const sizes: Record<Size, string> = {
@@ -46,7 +46,7 @@ export function ButtonLink({
     <a
       href={href}
       className={cn(
-        'group inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-mono font-medium tracking-[0.04em]',
+        'group cut-corner-sm inline-flex shrink-0 items-center justify-center gap-2 font-mono font-medium tracking-[0.04em]',
         'transition-[transform,box-shadow,background-color,color,border-color] duration-300 ease-standard',
         variants[variant],
         sizes[size],

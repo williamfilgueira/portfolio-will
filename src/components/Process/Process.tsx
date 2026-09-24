@@ -58,7 +58,7 @@ export function Process() {
   return (
     <section id="processo" className="relative bg-light py-24 text-on-light md:py-36">
       <Container>
-        <SectionIntro tone="light" label="04 · Processo" title="Do problema ao produto.">
+        <SectionIntro tone="light" label="04 // Processo" title="Do problema ao produto.">
           Uma linha de produção digital: cada etapa existe para reduzir risco antes de escrever mais
           código.
         </SectionIntro>

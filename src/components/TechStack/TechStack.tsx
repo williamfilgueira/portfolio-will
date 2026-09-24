@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { Container } from '@/components/ui/Container';
+import { HudOverlay } from '@/components/ui/HudOverlay';
 import { Reveal } from '@/components/ui/Reveal';
 import { SectionIntro } from '@/components/ui/SectionIntro';
 import { techEdges, techGroups, techNodes, type TechNode } from '@/data/technologies';
@@ -71,8 +72,9 @@ export function TechStack() {
 
   return (
     <section id="tecnologia" ref={root} className="relative bg-graphite py-24 md:py-36">
+      <HudOverlay />
       <Container>
-        <SectionIntro label="05 · Tecnologia" title="Por trás de cada solução existe uma arquitetura." />
+        <SectionIntro label="05 // Tecnologia" title="Por trás de cada solução existe uma arquitetura." />
 
         <div className="mt-16 grid items-center gap-16 md:mt-24 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex justify-center">
@@ -145,7 +147,10 @@ export function TechStack() {
 
             <div data-groups className="mt-10 grid gap-4 sm:grid-cols-2">
               {techGroups.map((group) => (
-                <div key={group.name} className="rounded-2xl border border-line bg-surface p-6">
+                <div
+                  key={group.name}
+                  className="cut-corner-sm cut-edge-sm border border-line bg-surface p-6"
+                >
                   <p className="font-mono text-eyebrow font-medium uppercase text-accent">{group.name}</p>
                   <div className="mt-4 h-px w-full bg-line">
                     <div data-meter className="h-px w-full origin-left bg-accent" />

@@ -1,7 +1,8 @@
 # Portfólio — William Filgueira
 
-Primeira versão (v0.1) do portfólio: **Fase 1 completa** (layout, tipografia, cores, responsivo, conteúdo)
-e a **base da Fase 2** (animações de entrada, scroll cinematográfico e smooth scroll).
+Versão atual (v0.5): **Fase 1 completa** (layout, tipografia, cores, responsivo, conteúdo),
+a **base da Fase 2** (animações de entrada, scroll cinematográfico e smooth scroll) e a
+**camada cyberpunk** (ciano de HUD, cantos chanfrados, scanlines).
 
 Stack: **Vite 8 · React 19 · TypeScript · Tailwind CSS 4 · motion · GSAP + ScrollTrigger · Lenis**
 
@@ -35,7 +36,9 @@ No VS Code, instale as extensões **Tailwind CSS IntelliSense** (`bradlc.vscode-
 | Quero mudar…                              | Arquivo                                   |
 | ----------------------------------------- | ----------------------------------------- |
 | Contatos, WhatsApp, LinkedIn, GitHub, foto | `src/data/site.ts`                        |
-| Avatar do hero                            | `src/assets/avatar.webp` (ver abaixo)     |
+| Avatar do hero                            | `src/assets/avatar-scan.webp` (ver abaixo) |
+| Foto da seção Sobre                       | `src/assets/foto-sobre.webp` (ver abaixo) |
+| Logos dos clientes (seção 06)             | `src/assets/logos/<id>.svg` (ver abaixo)  |
 | Problemas (seção 02)                      | `src/data/problems.ts`                    |
 | Soluções (seção 03)                       | `src/data/services.ts`                    |
 | Etapas do processo (seção 04)             | `src/data/process.ts`                     |
@@ -49,25 +52,60 @@ No VS Code, instale as extensões **Tailwind CSS IntelliSense** (`bradlc.vscode-
 
 ### Avatar do hero
 
-O avatar atual está em `src/assets/avatar.webp`. Para trocar, salve outra imagem (PNG/WebP **com fundo
-transparente de verdade**, busto, 4:5) como `src/assets/avatar.webp` ou `avatar.png` — só um dos dois.
-Ela entra sozinha: flutua, inclina em 3D com o cursor, recebe a luz âmbar e se desfaz em partículas
-no scroll. Sem o arquivo, o hero mostra o busto em nuvem de pontos.
+É o **retrato "3D scan"** (`src/assets/avatar-scan.webp` + `src/components/Avatar3D/scanPortrait.ts`).
+
+O arquivo **não é a arte colorida**: é só um **mapa de brilho em tons de cinza** (branco = ponto
+aceso, preto = vazio). A cor — o gradiente ciano → âmbar — é aplicada em runtime. Isso deixa o
+arquivo ~3× mais leve (139 KB em vez de ~475 KB) e a cor passa a acompanhar o design system: mudou
+o token, mudou o retrato.
+
+O que se move:
+
+| Momento | Animação                                                                     |
+| ------- | ---------------------------------------------------------------------------- |
+| Entrada | uma linha de varredura desce revelando o retrato (1,3s, uma vez)             |
+| Repouso | paralaxe 3D com o cursor, flutuação, pontos piscando e varredura a cada ~7s  |
+| Scroll  | vira partículas que se espalham, sobem e esquentam para âmbar (dissolve)     |
+
+Ajustes em `scanPortrait.ts`: `RAMP_START` (onde a cor vira âmbar), `SAMPLE` (quantas partículas no
+dissolve), `ENTRY_MS` e `SWEEP_MS` (tempos), `CYAN`/`AMBER` (cores).
+
+**Para trocar o retrato:** gere a arte (fundo preto, 1:1), converta para tons de cinza — o brilho
+vira o mapa — e salve como `src/assets/avatar-scan.webp`, ~860px. Sem esse arquivo, o hero cai no
+**busto low-poly gerado por código** (`lowPolyBust.ts`: icosfera deformada em cabeça, ombros por
+anéis de revolução, facetas que viram cacos no scroll) — ajustável por `headShape()`, `buildBust()`,
+`icosphere(1)` → `2` e as constantes de cor.
+
+### Foto da seção Sobre
+
+Salve como `src/assets/foto-sobre.webp` (`.jpg` / `.png` também), retrato 4:5, ~1000×1250.
+Entra sozinha na moldura chanfrada. Sem o arquivo, aparece o bloco "WF".
 
 ### Logos dos clientes
 
-A seção Cases é uma grade de logos. Salve cada logo (SVG/PNG **com fundo transparente**) em
-`src/assets/logos/` com o id do projeto como nome — ex.: `tapa-na-pantera.svg`. A lista de nomes está
-em `src/assets/logos/LEIA-ME.md`. Sem logo, o quadro mostra o nome do cliente em texto.
+Salve cada logo com fundo transparente em `src/assets/logos/<id do projeto>.svg` (ou `.png` / `.webp`) —
+os ids estão em `src/data/projects.ts` (ex.: `tapa-na-pantera.svg`). O logo entra no lugar do nome em
+texto e fica monocromático (preto; branco no hover). Sem o arquivo, o quadro mostra o nome.
+
+### Camada cyberpunk
+
+Três peças, todas em `src/styles/index.css` e `src/components/ui/`:
+
+| Peça                         | O que é                                                                     |
+| ---------------------------- | --------------------------------------------------------------------------- |
+| `cut-corner` / `cut-corner-sm` | Corta o canto superior direito e o inferior esquerdo (14px / 8px)           |
+| `cut-edge` / `cut-edge-sm`     | Desenha a diagonal do chanfro — use **junto** em elementos com borda, senão a borda fica aberta. Cor: `[--cut-line:…]` |
+| `HudOverlay`                 | Scanlines + granulado + vinheta das seções escuras (decorativo, sem clique) |
+| `CornerMarks`                | Colchetes de HUD nos quatro cantos                                          |
+
+O ciano (`text-cyber` no escuro, `text-cyber-ink` no claro) é só para **dados**: labels, números,
+`//`. O âmbar continua sendo o destaque da marca.
 
 ### Pendências de conteúdo
 
-- [x] Avatar estilo Pixar (`src/assets/avatar.webp`, fundo removido)
-- [ ] Animação de virar a cabeça (vídeo no Higgsfield → sequência de quadros)
 - [ ] Logos dos 5 clientes em `src/assets/logos/`
 - [ ] Descrição do site da Letícia Coutinho em `src/data/projects.ts`
 - [ ] GitHub em `src/data/site.ts` (aparece no rodapé quando preenchido)
-- [ ] Foto da seção Sobre: coloque em `public/` (ex.: `public/william.jpg`) e defina `photo: '/william.jpg'`
 
 ---
 
@@ -79,7 +117,8 @@ src/
 │   ├── Navbar/  Hero/  Avatar3D/  Bridge/  Problem/  Solutions/
 │   ├── Process/  TechStack/  Cases/  About/  Contact/  Footer/
 │   ├── ScrollProgress/
-│   └── ui/            Container, Eyebrow, ButtonLink, Pill, Reveal, SectionIntro
+│   └── ui/            Container, Eyebrow, ButtonLink, Pill, Reveal, SectionIntro,
+│                      HudOverlay, CornerMarks
 ├── animations/        gsap.ts (plugins + media queries) · tokens.ts (durações, easings)
 ├── hooks/             useMediaQuery · useReducedMotion · useScrollProgress · useSmoothScroll
 ├── integrations/      contact.ts (links de WhatsApp e e-mail)
@@ -98,13 +137,13 @@ As timelines de scroll ficam junto de cada seção (ex.: `Solutions.tsx`) para f
 | Seção      | Animação                                                                          |
 | ---------- | --------------------------------------------------------------------------------- |
 | Hero       | Entrada em sequência, título subindo de máscaras, marca-texto âmbar               |
-| Avatar     | Imagem (ou busto de pontos) com tilt 3D e luz âmbar; vira partículas ao sair da tela |
+| Avatar     | Retrato de scan: varredura na entrada, paralaxe no cursor, vira partículas no scroll |
 | Ponte      | Fundo CLARO → ÂMBAR → DARK no scroll, código subindo, duas frases                 |
 | Problema   | Barra "processando" em 16 passos + título entrando da esquerda                    |
 | Soluções   | Palco fixo de 420vh: painel SOLUTIONS atravessa a tela e 3 cards em sequência     |
 | Processo   | Linha desenhada no scroll; cada etapa acende quando a linha chega                 |
 | Tecnologia | Diagrama se conecta (linhas + nós) e barras dos grupos preenchem                  |
-| Cases      | Grade de logos (3×2): logo monocromático, hover escuro com logo branco + quadro CTA  |
+| Cases      | Grade de logos dos clientes; no hover o quadro escurece e o logo fica branco      |
 | Contato    | Fundo vira de DARK para ÂMBAR ao entrar                                           |
 | Global     | Barra de progresso no topo · smooth scroll (Lenis)                                |
 
@@ -121,15 +160,17 @@ telas menores que 1024px, a seção de Soluções vira uma lista normal (sem pin
 - `motion` carregado com `LazyMotion` + `domAnimation` (só os recursos usados).
 - React, GSAP e motion em chunks separados: ficam em cache entre deploys.
 - O avatar é canvas 2D (sem WebGL), limitado a 2× de densidade de pixel e pausado fora da tela.
+- O retrato do hero é um mapa de brilho em tons de cinza (139 KB) colorido em runtime — a arte
+  colorida equivalente pesaria ~475 KB.
 - As seções fixas usam `position: sticky` em vez de pin do GSAP (menos reflow).
 
 ---
 
 ## Próximas fases
 
-- **Fase 3 — Avatar:** avatar estilo Pixar em `src/assets/avatar.png` (já suportado). Se um dia
-  quiser 3D de verdade, dá para gerar um GLB a partir dessa mesma imagem (Tripo, Meshy, TRELLIS)
-  e trocar o renderer em `components/Avatar3D/renderers.ts`, mantendo o gatilho `dissolve`.
+- **Fase 3 — Avatar:** retrato de scan animado no ar. Se um dia quiser 3D de verdade (360°,
+  materiais, sombras), dá para trocar o renderer por React Three Fiber com um GLB, mantendo o mesmo
+  contrato: o componente só precisa de `dissolve` (0 → 1) e da posição do cursor.
 - **Fase 4 — Cinematic:** partículas que viram elementos de interface, shaders, transições 3D.
 - **Fase 5 — Otimização:** SEO (meta/OG image, sitemap), analytics, medições de Core Web Vitals,
   testes em aparelhos reais.

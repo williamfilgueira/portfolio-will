@@ -14,7 +14,7 @@ export function Navbar() {
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: duration.base, ease: ease.standard }}
-          className="flex h-14 items-center gap-4 rounded-full border border-line bg-graphite/80 pr-1.5 pl-5 backdrop-blur-xl"
+          className="cut-corner-sm cut-edge-sm flex h-14 items-center gap-4 border border-line bg-graphite/80 pr-1.5 pl-5 backdrop-blur-xl"
         >
           <a href="#inicio" className="font-display text-lg font-bold tracking-[-0.02em] text-ink">
             {site.brand}
@@ -26,7 +26,7 @@ export function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="inline-flex h-11 items-center rounded-full px-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-dim transition-colors duration-200 hover:text-accent"
+                  className="inline-flex h-11 items-center px-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink-dim transition-colors duration-200 hover:text-accent"
                 >
                   {link.label}
                 </a>

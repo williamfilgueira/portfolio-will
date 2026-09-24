@@ -99,7 +99,7 @@ export function Cases() {
   return (
     <section id="cases" className="relative bg-light py-24 text-on-light md:py-32">
       <Container>
-        <SectionIntro tone="light" label="06 · Cases" title="Selected Work">
+        <SectionIntro tone="light" label="06 // Cases" title="Selected Work">
           Projetos no ar, desenvolvidos para resolver problemas reais de negócios reais.
         </SectionIntro>
 

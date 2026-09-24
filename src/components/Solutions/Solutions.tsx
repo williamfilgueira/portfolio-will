@@ -1,6 +1,7 @@
 import { useRef, type ComponentType } from 'react';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { HudOverlay } from '@/components/ui/HudOverlay';
 import { Pill } from '@/components/ui/Pill';
 import { Reveal } from '@/components/ui/Reveal';
 import { services, type ServiceVisual } from '@/data/services';
@@ -84,12 +85,13 @@ export function Solutions() {
       ref={root}
       className={cn('relative bg-graphite', pinned ? 'h-[420vh]' : 'py-24 md:py-36')}
     >
-      <div className={cn(pinned && 'sticky top-0 h-svh overflow-hidden')}>
+      <div className={cn('relative', pinned && 'sticky top-0 h-svh overflow-hidden')}>
+        <HudOverlay />
         {/* Intro */}
         <div data-intro className={cn(pinned && 'absolute inset-0 flex items-center')}>
           <Container>
             <Reveal>
-              <Eyebrow>03 · Soluções</Eyebrow>
+              <Eyebrow>03 // Soluções</Eyebrow>
             </Reveal>
             <Reveal delay={0.08}>
               <h2 className="mt-6 max-w-[14ch] font-display text-display-xl font-bold">
@@ -132,7 +134,7 @@ export function Solutions() {
                     data-card
                     className={cn(pinned && 'absolute inset-0 flex items-center')}
                   >
-                    <article className="w-full rounded-[28px] border border-line bg-surface p-7 md:p-10 lg:p-12">
+                    <article className="cut-corner cut-edge w-full border border-line bg-surface p-7 md:p-10 lg:p-12">
                       <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
                         <div>
                           <p className="flex items-center gap-3 font-mono text-eyebrow font-medium uppercase text-accent">

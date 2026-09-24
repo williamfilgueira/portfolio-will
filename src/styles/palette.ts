@@ -11,6 +11,7 @@ export const palette = {
   lightSoft: '#f6f4f0',
   ink: '#f5f3ef',
   inkDim: '#a8a29a',
+  cyber: '#50e0c4',
   onAccent: '#2a1c05',
   onLight: '#221e17',
   lineStrong: 'rgba(245, 243, 239, 0.16)',
